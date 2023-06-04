@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "API",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "WHATSAPP_PHONE_NUMBER_ID": "104683162650653",
+                "WHATSAPP_VERIFY_TOKEN": "1234",
+                "WHATSAPP_API_TOKEN": "EAAD8OviIf0IBACnERET0yHhC8yzoZCXeyMx62G68ZCTeUCijViSl8aY11lsCGaiyf1jCgpkdVa6zgLKyrZChoT3LBLGAgufBIJ5eHrfi6wE2TZCM1keQYGfZBGYCPvoZBq4nE9nE56d5hdsI8SuJrbLlyETyPBFyIL28iokiqfR37yrRfYm8YNYqVfv2ynmHY2AtWpewG2kgZDZD",
+                "TWILIO_ACCOUNT_SID": "ACb759d51fbda66b9c0265a32f6ceff4dc",
+                "TWILIO_AUTH_TOKEN": "a8e49aae941aea30263b92ca4ace522a",
+                "CAMUNDA_URL": "http://localhost:8080/engine-rest"
+            }
+        },
+        {
+            "name": "Loro Workers",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/workers/loro_workers.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "WHATSAPP_PHONE_NUMBER_ID": "104683162650653",
+                "WHATSAPP_VERIFY_TOKEN": "1234",
+                "WHATSAPP_API_TOKEN": "EAAD8OviIf0IBACnERET0yHhC8yzoZCXeyMx62G68ZCTeUCijViSl8aY11lsCGaiyf1jCgpkdVa6zgLKyrZChoT3LBLGAgufBIJ5eHrfi6wE2TZCM1keQYGfZBGYCPvoZBq4nE9nE56d5hdsI8SuJrbLlyETyPBFyIL28iokiqfR37yrRfYm8YNYqVfv2ynmHY2AtWpewG2kgZDZD",
+                "TWILIO_ACCOUNT_SID": "ACb759d51fbda66b9c0265a32f6ceff4dc",
+                "TWILIO_AUTH_TOKEN": "a8e49aae941aea30263b92ca4ace522a",
+                "CAMUNDA_URL": "http://localhost:8080/engine-rest"
+            }
+        },
+        {
+            "name": "Nirsu Workers",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/workers/nirsu_workers.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "WHATSAPP_PHONE_NUMBER_ID": "104683162650653",
+                "WHATSAPP_VERIFY_TOKEN": "1234",
+                "WHATSAPP_API_TOKEN": "EAAD8OviIf0IBACnERET0yHhC8yzoZCXeyMx62G68ZCTeUCijViSl8aY11lsCGaiyf1jCgpkdVa6zgLKyrZChoT3LBLGAgufBIJ5eHrfi6wE2TZCM1keQYGfZBGYCPvoZBq4nE9nE56d5hdsI8SuJrbLlyETyPBFyIL28iokiqfR37yrRfYm8YNYqVfv2ynmHY2AtWpewG2kgZDZD",
+                "TWILIO_ACCOUNT_SID": "ACb759d51fbda66b9c0265a32f6ceff4dc",
+                "TWILIO_AUTH_TOKEN": "a8e49aae941aea30263b92ca4ace522a",
+                "CAMUNDA_URL": "http://localhost:8080/engine-rest"
+            }
+        }
+    ]
+}

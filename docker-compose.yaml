@@ -1,0 +1,121 @@
+version: '3'
+
+services:
+    camunda:
+        image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+        ports:
+            - "8080:8080"
+        restart: unless-stopped
+        networks:
+            - camunda
+
+    camunda-mysql:
+        image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+        environment:
+            - DB_DRIVER=com.mysql.cj.jdbc.Driver
+            - DB_URL=jdbc:mysql://mysql:3306/process-engine?sendFractionalSeconds=false
+            - DB_USERNAME=camunda
+            - DB_PASSWORD=camunda
+            - WAIT_FOR=mysql:3306
+        links:
+            - mysql
+        ports:
+            - "8080:8080"
+        restart: unless-stopped
+        networks:
+            - camunda
+
+    # camunda-postgres:
+    #     image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+    #     environment:
+    #         - DB_DRIVER=org.postgresql.Driver
+    #         - DB_URL=jdbc:postgresql://postgres:5432/camunda
+    #         - DB_USERNAME=camunda
+    #         - DB_PASSWORD=camunda
+    #         - WAIT_FOR=postgres:5432
+    #     links:
+    #         - postgres
+    #     ports:
+    #         - "8080:8080"
+    #     restart: unless-stopped
+
+    # camunda-debug:
+    #     image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+    #     environment:
+    #         - DEBUG=true
+    #     ports:
+    #         - "8080:8080"
+    #         - "8000:8000"
+    #     restart: unless-stopped
+
+    # camunda-prometheus-jmx:
+    #     image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+    #     environment:
+    #         - JMX_PROMETHEUS=true
+    #     ports:
+    #         - "8080:8080"
+    #         - "9404:9404"
+    #     restart: unless-stopped
+
+    # camunda-password-file:
+    #     image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+    #     environment:
+    #         - DB_DRIVER=com.mysql.cj.jdbc.Driver
+    #         - DB_URL=jdbc:mysql://mysql:3306/process-engine?sendFractionalSeconds=false
+    #         - DB_USERNAME=camunda
+    #         - DB_PASSWORD_FILE=/run/secrets/camunda_db_password
+    #         - WAIT_FOR=mysql:3306
+    #     volumes:
+    #         - $PWD/db-password.txt:/run/secrets/camunda_db_password
+    #     links:
+    #         - mysql
+    #     ports:
+    #         - "8080:8080"
+    #     restart: unless-stopped
+
+    mysql:
+        image: mysql:5.7
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=camunda
+            - MYSQL_USER=camunda
+            - MYSQL_PASSWORD=camunda
+            - MYSQL_DATABASE=process-engine
+        ports:
+            - "3306:3306"
+        expose:
+            - "3306"
+        networks:
+            - camunda
+
+    # postgres:
+    #     image: postgres:9.6
+    #     environment:
+    #         - POSTGRES_USER=camunda
+    #         - POSTGRES_PASSWORD=camunda
+
+    localstack:
+      container_name: "${LOCALSTACK_DOCKER_NAME-localstack_cloud}"
+      image: localstack/localstack
+      ports:
+        - "4510-4530:4510-4530"
+        - "4566:4566"
+        - "4571:4571"
+      environment:
+        - AWS_ACCESS_KEY_ID=fakeAccessKey
+        - AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey
+        - http_proxy=
+        - https_proxy=
+        - SERVICES=${SERVICES-}
+        - DEBUG=1
+        - LAMBDA_EXECUTOR=docker
+        - DOCKER_HOST=unix:///var/run/docker.sock
+        - DISABLE_CORS_CHECKS=1
+        - HOSTNAME_EXTERNAL=localhost
+        - HOSTNAME=localhost
+      volumes:
+        - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+        - "/var/run/docker.sock:/var/run/docker.sock"
+
+networks:
+  camunda:
